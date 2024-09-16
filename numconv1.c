@@ -55,17 +55,89 @@ int oct_to_int(char str[])
 {
     return any_to_int(str, 8, is_oct_digit);
 }
+
+void int_to_any(int org_int, char str[], int next_digit_num)
+{
+    // same story as in any_to_int()
+    const int lower_hex_diff = 87;
+    int remainder = org_int;
+    char temp_array[255];
+    int entries = 0;
+    int negative = org_int < 0;
+    // printf("Negative? %d\n", negative);
+    if (negative)
+    {
+        org_int *= -1;
+    }
+    int temp_hex_count = 0;
+    do
+    {
+        int next_val_int = remainder % next_digit_num;
+        // if (next_digit_num == 16)
+        if (next_digit_num == 16 && remainder > 16)
+        {
+        printf("Remainder at start of hex loop: %d\n", remainder);
+
+            temp_hex_count++;
+            printf("Entered hex loop: %d times\n", temp_hex_count);
+
+            int first_val = remainder / 16;
+            printf("remainder / 16 = %d\n", remainder / 16);
+            if (next_val_int > 9)
+            {
+                temp_array[entries++] = lower_hex_diff + next_val_int;
+                // printf("lower_hex_diff + next_val_int = %d (%c)\n", temp_array[entries-1], temp_array[entries-1]);
+            }
+            temp_array[entries++] = '0' + first_val % 16;
+            // else
+            // {
+            //     temp_array[entries++] = '0' + next_val_int;
+            // }
+            printf("Temp array in hex loop: %s\n", temp_array);
+        }
+        else if (next_digit_num == 16){
+    printf("Entries after remainder < 16: %d\n", entries);
+
+        }
+        else
+        {
+            temp_array[entries++] = '0' + next_val_int;
+        }
+        remainder /= next_digit_num;
+        // printf("Remainder %d\n", remainder);
+    } while (remainder);
+    // if (negative)
+    // {
+    //     printf("Is negative\n");
+    //     temp_array[entries++] = '-';
+    // }
+
+    int i = 0;
+    for (; i < entries; i++)
+    {
+        // printf("Index: %d. Entries: %d\n", i, entries);
+        str[entries - i - 1] = temp_array[i];
+    }
+
+    str[i] = '\0';
+    // printf("Final array: %s\n", str);
+}
+
 void int_to_dec(int num, char str[])
 {
+    int_to_any(num, str, 10);
 }
 void int_to_bin(int num, char str[])
 {
+    int_to_any(num, str, 2);
 }
 void int_to_hex(int num, char str[])
 {
+    int_to_any(num, str, 16);
 }
 void int_to_oct(int num, char str[])
 {
+    int_to_any(num, str, 8);
 }
 
 int is_digit(char c)

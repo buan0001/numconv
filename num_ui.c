@@ -14,6 +14,9 @@ int main()
         printf("(x) to exit\n");
         char num_type;
         scanf(" %c", &num_type);
+        if (num_type == 'x' || num_type == 'X'){
+            return 0;
+        }
 
         printf("Now enter the value you want to convert: ");
         char str_val[255];
@@ -36,12 +39,26 @@ int main()
         case 'b':
             int_val = bin_to_int(str_val);
             break;
-        case 'x':
-            return 0;
+
         default:
             printf("Invalid number type\n");
             break;
         }
+
+        printf("Int val: %d\n", int_val);
+        char buffer[510];
+        int_to_dec(int_val, buffer);
+        printf(" in decimal string: %s\n", buffer);
+
+        int_to_bin(int_val, buffer);
+        printf(" in binary string: %s\n", buffer);
+
+        int_to_oct(int_val, buffer);
+        printf(" in octal string: %s\n", buffer);
+
+        int_to_hex(int_val, buffer);
+        printf(" in hex string: %s\n", buffer);
+
     }
     return 0;
 }

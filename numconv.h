@@ -20,9 +20,9 @@ int is_bin_digit(char c);
 int is_hex_digit(char c);
 int is_oct_digit(char c);
 
-
 // Tests
-int check_result(char *str, int expected, int (*f)(char*), char *num_type);
+int run_to_int_tests(char *str, int expected, int (*f)(char *), char *num_type);
+int run_from_int_tests(int val_in_int, char *expected, void (*conv_f)(int, char *), char *num_type);
 void run_tests();
 
 #endif
