@@ -73,54 +73,31 @@ void int_to_any(int org_int, char str[], int next_digit_num)
     do
     {
         int next_val_int = remainder % next_digit_num;
-        // if (next_digit_num == 16)
-        if (next_digit_num == 16 && remainder > 16)
+        if (next_digit_num == 16)
         {
-        printf("Remainder at start of hex loop: %d\n", remainder);
-
-            temp_hex_count++;
-            printf("Entered hex loop: %d times\n", temp_hex_count);
-
-            int first_val = remainder / 16;
-            printf("remainder / 16 = %d\n", remainder / 16);
-            if (next_val_int > 9)
+            if (next_val_int < 10)
             {
-                temp_array[entries++] = lower_hex_diff + next_val_int;
-                // printf("lower_hex_diff + next_val_int = %d (%c)\n", temp_array[entries-1], temp_array[entries-1]);
+                temp_array[entries++] = next_val_int + '0'; // Convert 0-9 to '0'-'9'
             }
-            temp_array[entries++] = '0' + first_val % 16;
-            // else
-            // {
-            //     temp_array[entries++] = '0' + next_val_int;
-            // }
-            printf("Temp array in hex loop: %s\n", temp_array);
-        }
-        else if (next_digit_num == 16){
-    printf("Entries after remainder < 16: %d\n", entries);
-
+            else
+            {
+                temp_array[entries++] = (next_val_int - 10) + 'a'; // Convert 10-15 to 'A'-'F'
+            }
         }
         else
         {
             temp_array[entries++] = '0' + next_val_int;
         }
         remainder /= next_digit_num;
-        // printf("Remainder %d\n", remainder);
     } while (remainder);
-    // if (negative)
-    // {
-    //     printf("Is negative\n");
-    //     temp_array[entries++] = '-';
-    // }
 
     int i = 0;
     for (; i < entries; i++)
     {
-        // printf("Index: %d. Entries: %d\n", i, entries);
         str[entries - i - 1] = temp_array[i];
     }
 
     str[i] = '\0';
-    // printf("Final array: %s\n", str);
 }
 
 void int_to_dec(int num, char str[])
