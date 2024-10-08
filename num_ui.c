@@ -1,11 +1,13 @@
 #include <stdio.h>
 #include "numconv.h"
+#include <ctype.h>
 int main()
 {
     run_tests();
     while (1)
     {
 
+        
         printf("Enter a number type to convert from:\n");
         printf("(d) for decimal\n");
         printf("(o) for octal\n");
